@@ -4,8 +4,5 @@
   "iconName": "eslint",
   "categories": [
     "JavaScript"
-  ],
-  "filePatterns": [
-    "package.json"
   ]
 }
