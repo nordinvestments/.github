@@ -1,0 +1,12 @@
+{
+  "name": "Stylelint",
+  "description": "Stylelint workflow template.",
+  "iconName": "stylelint",
+  "categories": [
+    "CSS",
+    "SCSS"
+  ],
+  "filePatterns": [
+    "package.json"
+  ]
+}

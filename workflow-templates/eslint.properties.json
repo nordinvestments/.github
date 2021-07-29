@@ -1,0 +1,11 @@
+{
+  "name": "ESLint",
+  "description": "ESLint workflow template.",
+  "iconName": "eslint",
+  "categories": [
+    "JavaScript"
+  ],
+  "filePatterns": [
+    "package.json"
+  ]
+}

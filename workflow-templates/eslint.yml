@@ -1,0 +1,31 @@
+name: ESLint
+on:
+  push:
+    paths:
+    - '**.jsx?'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.17.3
+          registry-url: https://npm.pkg.github.com/
+          scope: '@nordinvestments'
+      - name: Fetch $default-branch
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+      - name: Set JS_CHANGES
+        run: echo ::set-env name=JS_CHANGES::$(echo -n `git diff --name-only --diff-filter=d origin/$default-branch HEAD -- '*.js' '*.jsx'`)
+      - name: Dump git diff
+        run: echo "$CHANGES"
+      - name: Install node modules
+        run: yarn install --ignore-scripts --no-lockfile --ignore-optional
+      - name: Run ESLint
+        if: ${{ env.JS_CHANGES != '' }}
+        run: yarn run eslint $JS_CHANGES
